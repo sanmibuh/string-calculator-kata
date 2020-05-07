@@ -16,6 +16,13 @@ public final class StringCalculator {
       return 0;
     }
 
+    if (input.startsWith("//")) {
+      final var delimiter = input.substring(2, 3);
+      return Stream.of(input.substring(4).split(delimiter))
+          .mapToInt(Integer::parseInt)
+          .sum();
+    }
+
     return Stream.of(PATTERN.split(input))
         .mapToInt(Integer::parseInt)
         .sum();

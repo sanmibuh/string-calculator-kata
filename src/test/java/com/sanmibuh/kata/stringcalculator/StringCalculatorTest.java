@@ -51,4 +51,13 @@ public class StringCalculatorTest {
     assertThat(result).isEqualTo(6);
   }
 
+  @Test
+  void should_add_support_different_delimiters() {
+    //when
+    final var result = StringCalculator.add("//;\n1;2");
+
+    //then
+    assertThat(result).isEqualTo(3);
+  }
+
 }
