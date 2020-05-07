@@ -33,4 +33,13 @@ public class StringCalculatorTest {
     assertThat(result).isEqualTo(3);
   }
 
+  @Test
+  void should_add_any_comma_separated_numbers() {
+    //when
+    final var result = StringCalculator.add("1,2,6,8,10");
+
+    //then
+    assertThat(result).isEqualTo(27);
+  }
+
 }
