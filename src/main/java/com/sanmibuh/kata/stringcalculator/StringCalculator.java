@@ -1,10 +1,11 @@
 package com.sanmibuh.kata.stringcalculator;
 
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public final class StringCalculator {
 
-  private static final String SEPARATOR = "[,\n]";
+  private static final Pattern PATTERN = Pattern.compile("[,\n]");
 
   private StringCalculator() {
     //util class
@@ -14,7 +15,8 @@ public final class StringCalculator {
     if (input.isEmpty()) {
       return 0;
     }
-    return Stream.of(input.split(SEPARATOR))
+
+    return Stream.of(PATTERN.split(input))
         .mapToInt(Integer::parseInt)
         .sum();
   }
