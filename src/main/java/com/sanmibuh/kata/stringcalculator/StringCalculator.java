@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 public final class StringCalculator {
 
   private static final Pattern PATTERN = Pattern.compile("[,\n]");
+  private static final String DELIMITER_PREFIX = "//";
 
   private StringCalculator() {
     //util class
@@ -15,16 +16,19 @@ public final class StringCalculator {
     if (input.isEmpty()) {
       return 0;
     }
-
-    if (input.startsWith("//")) {
-      final var delimiter = input.substring(2, 3);
-      return Stream.of(input.substring(4).split(delimiter))
-          .mapToInt(Integer::parseInt)
-          .sum();
-    }
-
-    return Stream.of(PATTERN.split(input))
+    
+    return Stream.of(getNumbers(input))
         .mapToInt(Integer::parseInt)
         .sum();
+  }
+
+  private static String[] getNumbers(final String input) {
+    if (input.startsWith(DELIMITER_PREFIX)) {
+      final var delimiterPrefixLength = DELIMITER_PREFIX.length();
+      final var delimiter = input.substring(delimiterPrefixLength, delimiterPrefixLength + 1);
+      return input.substring(delimiterPrefixLength + 2).split(delimiter);
+    }
+
+    return PATTERN.split(input);
   }
 }
