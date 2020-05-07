@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 public final class StringCalculator {
 
-  private static final String SEPARATOR = ",";
+  private static final String SEPARATOR = "[,\n]";
 
   private StringCalculator() {
     //util class

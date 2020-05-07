@@ -42,4 +42,13 @@ public class StringCalculatorTest {
     assertThat(result).isEqualTo(27);
   }
 
+  @Test
+  void should_add_handles_new_line_as_separator() {
+    //when
+    final var result = StringCalculator.add("1\n2,3");
+
+    //then
+    assertThat(result).isEqualTo(6);
+  }
+
 }
