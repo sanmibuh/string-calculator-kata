@@ -18,11 +18,7 @@ public final class StringCalculator {
     }
 
     final var numbers = getNumbers(input);
-    if (numbers.stream()
-        .mapToInt(Integer::parseInt)
-        .anyMatch(number -> number < 0)) {
-      throw new NegativesAreNotAllowed(numbers);
-    }
+    validateNumbers(numbers);
 
     return numbers.stream()
         .mapToInt(Integer::parseInt)
@@ -37,5 +33,17 @@ public final class StringCalculator {
     }
 
     return List.of(PATTERN.split(input));
+  }
+
+  private static void validateNumbers(final List<String> numbers) {
+    if (numbers.stream()
+        .mapToInt(Integer::parseInt)
+        .anyMatch(StringCalculator::negative)) {
+      throw new NegativesAreNotAllowed(numbers);
+    }
+  }
+
+  private static boolean negative(final int number) {
+    return number < 0;
   }
 }
