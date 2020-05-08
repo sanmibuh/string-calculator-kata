@@ -69,4 +69,13 @@ public class StringCalculatorTest {
         .hasMessage("Negatives not allowed: [%d, %d]", -1, -2);
   }
 
+  @Test
+  void should_add_ignore_numbers_bigger_than_1000() {
+    //when
+    final var result = StringCalculator.add("2,1001");
+
+    //then
+    assertThat(result).isEqualTo(2);
+  }
+
 }

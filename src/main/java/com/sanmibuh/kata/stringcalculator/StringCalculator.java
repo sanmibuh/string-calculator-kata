@@ -7,6 +7,7 @@ public final class StringCalculator {
 
   private static final Pattern PATTERN = Pattern.compile("[,\n]");
   private static final String DELIMITER_PREFIX = "//";
+  private static final int LIMIT = 1000;
 
   private StringCalculator() {
     //util class
@@ -22,6 +23,7 @@ public final class StringCalculator {
 
     return numbers.stream()
         .mapToInt(Integer::parseInt)
+        .filter(StringCalculator::isInLimit)
         .sum();
   }
 
@@ -45,5 +47,9 @@ public final class StringCalculator {
 
   private static boolean negative(final int number) {
     return number < 0;
+  }
+
+  private static boolean isInLimit(final int number) {
+    return number <= LIMIT;
   }
 }
