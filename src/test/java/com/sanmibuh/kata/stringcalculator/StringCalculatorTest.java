@@ -1,6 +1,7 @@
 package com.sanmibuh.kata.stringcalculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,6 +59,14 @@ public class StringCalculatorTest {
 
     //then
     assertThat(result).isEqualTo(3);
+  }
+
+  @Test
+  void should_add_fails_with_negative_numbers() {
+    //when
+    assertThatThrownBy(() -> StringCalculator.add("-1\n-2"))
+        .isInstanceOf(NegativesAreNotAllowed.class)
+        .hasMessage("Negatives not allowed: [%d, %d]", -1, -2);
   }
 
 }

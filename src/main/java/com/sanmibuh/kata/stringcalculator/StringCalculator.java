@@ -1,7 +1,7 @@
 package com.sanmibuh.kata.stringcalculator;
 
+import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public final class StringCalculator {
 
@@ -16,19 +16,26 @@ public final class StringCalculator {
     if (input.isEmpty()) {
       return 0;
     }
-    
-    return Stream.of(getNumbers(input))
+
+    final var numbers = getNumbers(input);
+    if (numbers.stream()
+        .mapToInt(Integer::parseInt)
+        .anyMatch(number -> number < 0)) {
+      throw new NegativesAreNotAllowed(numbers);
+    }
+
+    return numbers.stream()
         .mapToInt(Integer::parseInt)
         .sum();
   }
 
-  private static String[] getNumbers(final String input) {
+  private static List<String> getNumbers(final String input) {
     if (input.startsWith(DELIMITER_PREFIX)) {
       final var delimiterPrefixLength = DELIMITER_PREFIX.length();
       final var delimiter = input.substring(delimiterPrefixLength, delimiterPrefixLength + 1);
-      return input.substring(delimiterPrefixLength + 2).split(delimiter);
+      return List.of(input.substring(delimiterPrefixLength + 2).split(delimiter));
     }
 
-    return PATTERN.split(input);
+    return List.of(PATTERN.split(input));
   }
 }
