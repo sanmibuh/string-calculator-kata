@@ -78,4 +78,13 @@ public class StringCalculatorTest {
     assertThat(result).isEqualTo(2);
   }
 
+  @Test
+  void should_add_support_any_length_delimiter() {
+    //when
+    final var result = StringCalculator.add("//[***]\n1***2***3");
+
+    //then
+    assertThat(result).isEqualTo(6);
+  }
+
 }

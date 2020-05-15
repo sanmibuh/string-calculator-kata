@@ -7,6 +7,7 @@ public final class StringCalculator {
 
   private static final Pattern PATTERN = Pattern.compile("[,\n]");
   private static final String DELIMITER_PREFIX = "//";
+  private static final String DELIMITER_SUFFIX = "\n";
   private static final int LIMIT = 1000;
 
   private StringCalculator() {
@@ -29,9 +30,11 @@ public final class StringCalculator {
 
   private static List<String> getNumbers(final String input) {
     if (input.startsWith(DELIMITER_PREFIX)) {
-      final var delimiterPrefixLength = DELIMITER_PREFIX.length();
-      final var delimiter = input.substring(delimiterPrefixLength, delimiterPrefixLength + 1);
-      return List.of(input.substring(delimiterPrefixLength + 2).split(delimiter));
+      var delimiter = input.substring(DELIMITER_PREFIX.length(), input.indexOf(DELIMITER_SUFFIX));
+      if (delimiter.length() > 1) {
+        delimiter = delimiter.substring(1, delimiter.length() -1);
+      }
+      return List.of(input.substring(input.indexOf(DELIMITER_SUFFIX) +1).split(Pattern.quote(delimiter)));
     }
 
     return List.of(PATTERN.split(input));
